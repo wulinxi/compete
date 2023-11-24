@@ -4,33 +4,47 @@ import Layout from '../views/Layout.vue'
 import Home from '../views/Home/HomeView.vue'
 import About from '../views/Home/AboutView.vue'
 import Page404 from '../views/404.vue'
-
+import fixed from '../views/Fixed-carbon-emissions.vue'
 Vue.use(VueRouter)
 
 // 與 if-elseif 功能類似
 const routes = [
   {
-    path: '/',
     name: 'layout',
-    redirect: '/home',
-    // 加載 layout 組件
+    // if 链接上匹配到 '/' 路径
+    path: '/',
+    // 则 <router-view> 显示为 Layout 組件
     component: Layout,
-    // layout 組件裏面的路由
+    // 重定向，链接变更为 '/home'
+    redirect: '/home',
+    // Layout 組件裏面的路由
     children: [
       {
+        // if 匹配到 '/home' 路径
         path: 'home',
+        // 则 Layout 组件里的 <router-view> 显示为 Home 組件
         component: Home,
       },
       {
+        // else-if 匹配到 '/about' 路径
         path: 'about',
+        // 则 Layout 组件里的 <router-view> 显示为 About 組件
         component: About,
       },
+      {
+        path: '/fix',
+        component: fixed,
+      },
     ],
+
   },
+
   {
+    // else 匹配所有路径
     path: '*',
     component: Page404,
-  }
+  },
+
 ]
 
 const router = new VueRouter({

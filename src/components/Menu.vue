@@ -1,18 +1,33 @@
 <template>
-  <el-menu :default-openeds="['1', '3']">
+  <el-menu router>
     <el-submenu index="1">
       <template slot="title">
-        <i class="el-icon-location"></i>
-        <span>导航一</span>
+        <span>製造双碳</span>
       </template>
 
-      <el-menu-item>
-        <router-link to="/">Home</router-link>
-      </el-menu-item>
+      <el-menu-item index="/home">Home</el-menu-item>
 
-      <el-menu-item>
-        <router-link to="/about">About</router-link>
-      </el-menu-item>
+      <el-menu-item index="/about">About</el-menu-item>
+
+      <el-submenu index="1-1">
+        <template slot="title">
+          <span>双碳配置</span>
+        </template>
+
+        <el-menu-item index="/fix">固定碳排放</el-menu-item>
+      </el-submenu>
+    </el-submenu>
+
+    <el-submenu index="2-1">
+      <template slot="title">
+        <span>2-1</span>
+      </template>
+
+      <el-menu-item>CAIDSAN</el-menu-item>
+      <el-menu-item>CAIDSAN</el-menu-item>
+      <el-menu-item>CAIDSAN</el-menu-item>
+      <el-menu-item>CAIDSAN</el-menu-item>
+      <el-menu-item>CAIDSAN</el-menu-item>
     </el-submenu>
   </el-menu>
 </template>

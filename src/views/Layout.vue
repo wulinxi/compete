@@ -1,26 +1,27 @@
 <template>
   <el-container>
     <el-header>標題</el-header>
-    
+
     <el-container>
       <el-aside width="200px">
         <Menu />
       </el-aside>
 
       <el-main>
+        <!-- 已經進來 layout 的二層的路由-->
         <router-view />
       </el-main>
     </el-container>
   </el-container>
 </template>
-  
+
 <script>
-import Menu from '@/components/Menu.vue';
+import Menu from "@/components/Menu.vue";
 
 export default {
   components: {
     Menu
-  },
+  }
 };
 </script>
 

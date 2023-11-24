@@ -12,12 +12,13 @@ const routes = [
   {
     path: '/',
     name: 'layout',
+    redirect: '/home',
     // 加載 layout 組件
     component: Layout,
     // layout 組件裏面的路由
     children: [
       {
-        path: '',
+        path: 'home',
         component: Home,
       },
       {

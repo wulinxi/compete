@@ -1,31 +1,41 @@
 <template>
-  <el-table :data="tableData" border style="width: 100%">
-    <el-table-column fixed prop="date" label="编号" width="150"></el-table-column>
-    <el-table-column prop="name" label="能耗项" width="120"></el-table-column>
-    <el-table-column prop="province" label="项目类型" width="120"></el-table-column>
-    <el-table-column prop="city" label="时间类型" width="120"></el-table-column>
-    <el-table-column prop="address" label="能耗数" width="300"></el-table-column>
-    <el-table-column prop="zip" label="预警阙值" width="120"></el-table-column>
-    <el-table-column fixed="right" label="操作" width="100">
-      <template slot-scope="scope">
-        <el-button @click="handleClick(scope.row)" type="text" size="small">修改</el-button>
-        <el-button type="text" size="small"></el-button>
-      </template>
-    </el-table-column>
-  </el-table>
+  <div>
+    <el-table :data="tableData" border style="width: 100%">
+      <el-table-column fixed prop="date" label="编号"></el-table-column>
+      <el-table-column prop="name" label="能耗项"></el-table-column>
+      <el-table-column prop="province" label="项目类型"></el-table-column>
+      <el-table-column prop="city" label="时间类型"></el-table-column>
+      <el-table-column prop="address" label="能耗数"></el-table-column>
+      <el-table-column prop="zip" label="预警阙值"></el-table-column>
+      <el-table-column fixed="right" label="操作">
+        <template slot-scope>
+          <el-button @click="dialogVisible = true" type="text" size="small">修改</el-button>
+          <el-button type="text" size="small">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+
+    <el-dialog title="提示" :visible.sync="dialogVisible">
+      <span>这是一段信息</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
+  </div>
 </template>
-  
-  <script>
+
+<script>
 export default {
-    
   methods: {
     handleClick(row) {
       console.log(row);
-    }
+    },
   },
 
   data() {
     return {
+      dialogVisible: false,
       tableData: [
         {
           date: "2016-05-02",

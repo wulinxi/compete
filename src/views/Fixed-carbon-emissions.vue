@@ -1,5 +1,20 @@
 <template>
   <div>
+    <el-form :model="searchForm" ref="searchForm" inline>
+      <el-form-item label="能耗项">
+        <el-input v-model="searchForm.energyItem"></el-input>
+      </el-form-item>
+      <el-form-item label="项目类型">
+        <el-input v-model="searchForm.projectType"></el-input>
+      </el-form-item>
+      <el-form-item label="时间类型">
+        <el-input v-model="searchForm.timeType"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+        <el-button @click="handleReset">重置</el-button>
+      </el-form-item>
+    </el-form>
     <el-table :data="tableData" border style="width: 100%">
       <el-table-column fixed prop="id" label="编号"></el-table-column>
       <el-table-column prop="name" label="能耗项"></el-table-column>
@@ -49,6 +64,11 @@
 export default {
   data() {
     return {
+      searchForm: {
+        energyItem: '',
+        projectType: '',
+        timeType: ''
+      },
       tableData: [
         {
           id: "1",
@@ -83,6 +103,13 @@ export default {
     };
   },
   methods: {
+    handleSearch() {
+      // 执行模糊查询并刷新列表数据的逻辑
+      // 使用this.searchForm.energyItem, this.searchForm.projectType, this.searchForm.timeType来获取输入的查询条件
+    },
+    handleReset() {
+      this.$refs.searchForm.resetFields(); // 重置表单
+    },
     // 编辑表格行
     edit(row) {
       // 填充内容到表单
@@ -108,7 +135,7 @@ export default {
         // 如果校验通过
         if (valid) {
           // TODO: 提交表单到后端
-          alert("submit!");
+          alert("修改成功");
           // 关闭对话框
           this.dialogVisible = false;
         }

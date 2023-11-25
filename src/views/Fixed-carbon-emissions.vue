@@ -1,20 +1,23 @@
 <template>
   <div>
     <el-form :model="searchForm" ref="searchForm" inline>
-      <el-form-item label="能耗项">
+      <el-form-item label="能耗项" prop="energyItem">
         <el-input v-model="searchForm.energyItem"></el-input>
       </el-form-item>
-      <el-form-item label="项目类型">
+      <el-form-item label="项目类型" prop="projectType">
         <el-input v-model="searchForm.projectType"></el-input>
       </el-form-item>
-      <el-form-item label="时间类型">
+      <el-form-item label="时间类型" prop="timeType">
         <el-input v-model="searchForm.timeType"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
         <el-button @click="handleReset">重置</el-button>
+
+        <el-button type="primary" @click="create()">新建</el-button>
       </el-form-item>
     </el-form>
+
     <el-table :data="tableData" border style="width: 100%">
       <el-table-column fixed prop="id" label="编号"></el-table-column>
       <el-table-column prop="name" label="能耗项"></el-table-column>
@@ -30,24 +33,24 @@
       </el-table-column>
     </el-table>
 
-    <el-dialog title="提示" :visible.sync="dialogVisible">
+    <el-dialog :title="title" :visible.sync="dialogVisible">
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="能耗项" prop="name">
           <el-input v-model="form.name"></el-input>
         </el-form-item>
-        <el-form-item label="项目类型">
+        <el-form-item label="项目类型" prop="itemtype">
           <el-input v-model="form.itemtype"></el-input>
         </el-form-item>
-        <el-form-item label="时间类型">
+        <el-form-item label="时间类型" prop="timetype">
           <el-input v-model="form.timetype"></el-input>
         </el-form-item>
-        <el-form-item label="能耗数">
+        <el-form-item label="能耗数" prop="numbers">
           <el-input v-model="form.numbers"></el-input>
         </el-form-item>
-        <el-form-item label="预警阙值">
+        <el-form-item label="预警阙值" prop="threshold">
           <el-input v-model="form.threshold"></el-input>
         </el-form-item>
-        <el-form-item label="备注">
+        <el-form-item label="备注" prop="remark">
           <el-input v-model="form.remark"></el-input>
         </el-form-item>
       </el-form>
@@ -65,9 +68,9 @@ export default {
   data() {
     return {
       searchForm: {
-        energyItem: '',
-        projectType: '',
-        timeType: ''
+        energyItem: "",
+        projectType: "",
+        timeType: ""
       },
       tableData: [
         {
@@ -96,6 +99,8 @@ export default {
         threshold: "",
         remark: ""
       },
+      //声明空值
+      title: "",
       rules: {
         name: [{ required: true, message: "请输入能耗项", trigger: "blur" }]
       },
@@ -104,29 +109,34 @@ export default {
   },
   methods: {
     handleSearch() {
-      // 执行模糊查询并刷新列表数据的逻辑
-      // 使用this.searchForm.energyItem, this.searchForm.projectType, this.searchForm.timeType来获取输入的查询条件
+      //TODO
     },
     handleReset() {
       this.$refs.searchForm.resetFields(); // 重置表单
     },
+    create() {
+      this.title = "添加固定碳排放";
+      this.dialogVisible = true;
+      // *确保挂载*
+      this.$nextTick(() => {
+        this.resetForm();
+      });
+    },
     // 编辑表格行
     edit(row) {
-      // 填充内容到表单
-      this.form = {
-        id: "",
-        name: "",
-        itemtype: "",
-        timetype: "",
-        numbers: "",
-        threshold: "",
-        remark: "",
-        // 填充 row 部分内容
-        ...row
-      };
-
+      this.title = "编辑";
       // 打开对话框
       this.dialogVisible = true;
+
+      // 使用 nextTick 确保对话框和表单已挂载
+      this.$nextTick(() => {
+        // 重置表单到空值
+        this.resetForm();
+
+        // 填充内容到表单
+        // 主要用于对象合并，将源对象中的属性复制到目标对象中，他将返回目标对象
+        Object.assign(this.form, row);
+      });
     },
     // 提交表单
     onSubmit() {

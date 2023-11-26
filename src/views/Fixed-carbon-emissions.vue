@@ -112,6 +112,8 @@ export default {
       const index = this.tableData.indexOf(row);
     if (index !== -1) {
       this.tableData.splice(index, 1);}
+      //传输到后台
+      // this.$axios.get('',{id:row.id})
             },
     handleSearch() {
       //TODO

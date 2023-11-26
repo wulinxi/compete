@@ -5,6 +5,7 @@ import Home from '../views/Home/HomeView.vue'
 import About from '../views/Home/AboutView.vue'
 import Page404 from '../views/404.vue'
 import fixed from '../views/Fixed-carbon-emissions.vue'
+import login from '@/components/login.vue'
 Vue.use(VueRouter)
 
 // 與 if-elseif 功能類似
@@ -16,7 +17,7 @@ const routes = [
     // 则 <router-view> 显示为 Layout 組件
     component: Layout,
     // 重定向，链接变更为 '/home'
-    redirect: '/home',
+    redirect: '/login',
     // Layout 組件裏面的路由
     children: [
       {
@@ -36,6 +37,11 @@ const routes = [
         component: fixed,
       },
     ],
+
+  },
+  {
+    path: "/login",
+    component: login,
 
   },
 

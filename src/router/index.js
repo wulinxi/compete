@@ -4,8 +4,8 @@ import Layout from '../views/Layout.vue'
 import Home from '../views/Home/HomeView.vue'
 import About from '../views/Home/AboutView.vue'
 import Page404 from '../views/404.vue'
-import fixed from '../views/Fixed-carbon-emissions.vue'
-import login from '@/components/login.vue'
+import Fixed from '../views/Fixed-carbon-emissions.vue'
+import Login from '@/views/Login.vue'
 Vue.use(VueRouter)
 
 // 與 if-elseif 功能類似
@@ -34,17 +34,15 @@ const routes = [
       },
       {
         path: '/fix',
-        component: fixed,
+        component: Fixed,
       },
     ],
 
   },
   {
     path: "/login",
-    component: login,
-
+    component: Login,
   },
-
   {
     // else 匹配所有路径
     path: '*',

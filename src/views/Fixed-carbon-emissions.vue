@@ -111,11 +111,18 @@ export default {
   },
   methods: {
     del(row) {
-      //   const index = this.tableData.indexOf(row);
-      // if (index !== -1) {
-      //   this.tableData.splice(index, 1);}
       //传输到后台
+      axios.delete(`/api/items/${row}`).then(res => {
+        this.DelDataForm();
+      });
       // this.$axios.get('',{id:row.id})
+    },
+    DelDataForm(){
+axios.get('../api/del',{
+  delete:this.row
+}).then(res=>{
+  //这不会
+})
     },
     handleSearch() {
       axios
@@ -161,19 +168,19 @@ export default {
       this.$refs.form.validate(valid => {
         // 如果校验通过
         if (valid) {
-          axios.get("....../api.modify", {
+          axios
+            .get("....../api.modify", {
               modify: this.form
             })
             .then(res => {
               //根据后端返回数据进行判断如果成功
               alert("修改成功");
-             
-            })//如果返回失败
+            }) //如果返回失败
             .catch(error => {
               console.error("Error during modify", error);
             });
           // TODO: 提交表单到后端
-          
+
           // 关闭对话框
           this.dialogVisible = false;
         }

@@ -8,7 +8,7 @@
         <el-input placeholder="请输入密码" v-model="input.password" clearable></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="login">登录</el-button>
+        <el-button type="primary" @click="login">登录</el-button> `     `
       </el-form-item>
     </el-form>
   </div>
@@ -25,12 +25,14 @@ export default {
     };
   },
   methods: {
-    async login() {
+     login() {
         //请求数据
-        let {res:data}= await this.$axios.get('http://localhost:3000/api/userinfo');
-        console.log(res);
-        res.data
-      if (res.data.username === this.input.username && this.input.password === "123456") {
+      // this.$axios.post("http://...../api/user/login",{name:this.username,password:this.password}).then(res=>{
+      //   console.log(res,data)
+      // if (res.data.username === this.input.username && res.data.password === this.input.password) {
+      // });
+      
+        if (  this.input.username=== "admin" && this.input.password === "123456") {
         this.$router.push("/home");
         console.log("Login SUCCESSS");
       } else {

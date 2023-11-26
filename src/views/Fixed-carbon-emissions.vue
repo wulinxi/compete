@@ -33,6 +33,7 @@
       </el-table-column>
     </el-table>
 
+    <!-- 修改 -->
     <el-dialog :title="title" :visible.sync="dialogVisible">
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="能耗项" prop="name">
@@ -64,6 +65,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -73,22 +75,22 @@ export default {
         timeType: ""
       },
       tableData: [
-        {
-          id: "1",
-          name: "能耗项-1",
-          itemtype: "项目类型-1",
-          timetype: "时间类型-1",
-          numbers: 123,
-          threshold: 345
-        },
-        {
-          id: "2",
-          name: "能耗项-2",
-          itemtype: "项目类型-2",
-          timetype: "时间类型-2",
-          numbers: 4444,
-          threshold: 5555
-        }
+        // {
+        //   id: "1",
+        //   name: "能耗项-1",
+        //   itemtype: "项目类型-1",
+        //   timetype: "时间类型-1",
+        //   numbers: 123,
+        //   threshold: 345
+        // },
+        // {
+        //   id: "2",
+        //   name: "能耗项-2",
+        //   itemtype: "项目类型-2",
+        //   timetype: "时间类型-2",
+        //   numbers: 4444,
+        //   threshold: 5555
+        // }
       ],
       form: {
         id: "",
@@ -109,14 +111,22 @@ export default {
   },
   methods: {
     del(row) {
-      const index = this.tableData.indexOf(row);
-    if (index !== -1) {
-      this.tableData.splice(index, 1);}
+      //   const index = this.tableData.indexOf(row);
+      // if (index !== -1) {
+      //   this.tableData.splice(index, 1);}
       //传输到后台
       // this.$axios.get('',{id:row.id})
-            },
+    },
     handleSearch() {
-      //TODO
+      axios
+        .get("....../api.search", { search: this.searchForm })
+        .then(response => {
+          // console.log(this.searchForm);
+          this.tableData = response.data;
+        })
+        .catch(error => {
+          console.error("Error during search", error);
+        });
     },
     handleReset() {
       this.$refs.searchForm.resetFields(); // 重置表单
@@ -151,8 +161,19 @@ export default {
       this.$refs.form.validate(valid => {
         // 如果校验通过
         if (valid) {
+          axios.get("....../api.modify", {
+              modify: this.form
+            })
+            .then(res => {
+              //根据后端返回数据进行判断如果成功
+              alert("修改成功");
+             
+            })//如果返回失败
+            .catch(error => {
+              console.error("Error during modify", error);
+            });
           // TODO: 提交表单到后端
-          alert("修改成功");
+          
           // 关闭对话框
           this.dialogVisible = false;
         }

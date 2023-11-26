@@ -28,7 +28,7 @@
       <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
           <el-button @click="edit(scope.row)" type="text" size="small">修改</el-button>
-          <el-button type="text" size="small">删除</el-button>
+          <el-button type="text" size="small" @click="del(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -108,6 +108,11 @@ export default {
     };
   },
   methods: {
+    del(row) {
+      const index = this.tableData.indexOf(row);
+    if (index !== -1) {
+      this.tableData.splice(index, 1);}
+            },
     handleSearch() {
       //TODO
     },

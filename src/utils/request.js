@@ -3,7 +3,7 @@ import { Message } from 'element-ui'
 
 const request = axios.create({
   // 所有请求都会加这个前缀
-  baseURL: '/api',
+  // baseURL: process.env.VUE_APP_BASE_API,
   // 设置超时，后端超过时间无返回值就会报错
   timeout: 20000
 })
